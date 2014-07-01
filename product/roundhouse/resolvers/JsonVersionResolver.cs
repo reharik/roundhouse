@@ -37,7 +37,7 @@ namespace roundhouse.resolvers
                     using (StreamReader r = new StreamReader(version_file))
                     {
                         string json = r.ReadToEnd();
-                        JsonVersionNumber item = JsonConvert.DeserializeObject<List<JsonVersionNumber>>(json).FirstOrDefault();
+                        JsonVersionNumber item = JsonConvert.DeserializeObject<JsonVersionNumber>(json);
                         version = item.version;
                         Log.bound_to(this).log_an_info_event_containing(" Found version {0} from {1}.", version, version_file);
                     }
@@ -56,9 +56,10 @@ namespace roundhouse.resolvers
 
             return version;
         }
-        internal class JsonVersionNumber
-        {
-            public string version { get; set; }
-        }
     }
+    public class JsonVersionNumber
+    {
+        public string version { get; set; }
+    }
+
 }
